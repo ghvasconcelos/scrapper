@@ -1,152 +1,70 @@
-# Google Maps Scraper Kit
+# CRM de Prospecção
 
-<p align="center">
-  <img src="assets/banner.svg" alt="Google Maps Scraper Kit — run a free Google Maps scraper locally, let Claude drive it on autopilot" width="100%">
-</p>
+CRM para transformar buscas do Google Maps em vendas de site e tráfego pago. Os dados ficam no
+**Supabase** (Postgres), então o mesmo CRM funciona em dois lugares:
 
-A **plug-and-play kit** that runs a free, open-source Google Maps scraper **on your own computer**
-and lets **Claude** drive it on autopilot — give Claude a city + a business type, get back a clean
-list of businesses (name, address, phone, website, rating, reviews, lat/lng, emails).
+- **No PC com o scraper** (http://localhost:3000): dispara as buscas no scraper (Docker, `http://localhost:8080`)
+  e importa os leads para o banco.
+- **Na Vercel**: a equipe trabalha os leads de qualquer lugar. Lá não há scraper, então "Nova busca" não roda;
+  o que for importado no PC aparece sozinho.
 
-Built as a thin wrapper around [**`gosom/google-maps-scraper`**](https://github.com/gosom/google-maps-scraper)
-by **Georgios Komninos** (MIT). See [CREDITS.md](CREDITS.md). This kit adds: a one-command Docker setup,
-ready-to-run scripts, and a **Claude skill** so Claude knows exactly how to use the API the right way.
+O CRM não tem login: qualquer pessoa com o link da Vercel vê os leads.
 
-> ⚠️ **Before you scrape — over-use can get your IP temporarily blocked.**
-> This runs a real scraper against Google Maps. Light use is fine, but big jobs back-to-back, very high
-> `depth`, many keywords, or scheduled runs **without proxies** can make Google **temporarily rate-limit or
-> block your IP** (usually clears in minutes–hours; jobs return empty/failed meanwhile). It does **not** ban
-> your Google account. Stay safe: **one job at a time, start at `depth 5`, add proxies for large/repeated
-> runs.** Scraping Maps is against Google's ToS — use responsibly and follow data law (GDPR/CCPA) for any
-> contact data. Full guidance: [Rate limits, bans & responsible use](#️-rate-limits-bans--responsible-use).
+## Configurar o banco (uma vez)
 
----
+1. No Supabase, abra o **SQL Editor** e rode [`supabase/schema.sql`](supabase/schema.sql) (cria as tabelas).
+2. Para trazer os dados do CRM antigo (SQLite), rode também `data/supabase-dados.sql` (fica fora do git).
+3. Em **Connect → Transaction pooler**, copie a connection string e troque `[YOUR-PASSWORD]` pela senha do banco.
+4. Cole em `.env.local` (no PC) e em **Vercel → Settings → Environment Variables** como `DATABASE_URL`.
 
-## What you get
+Opcional: `DATABASE_CA` com o certificado do Supabase (Database Settings → SSL → Download certificate) para a
+conexão conferir o servidor.
 
-- 🐳 **One-command local setup** — `docker compose up -d` runs the scraper at `http://localhost:8080`.
-- 🤖 **A Claude skill** — open this folder in Claude Code and just say *"scrape coffee shops in Austin"*. Claude does create → poll → download → clean results, following best practices automatically.
-- 🛠️ **Standalone scripts** — `scripts/scrape.sh` (bash) and `scripts/scrape.py` (Python, no dependencies) if you'd rather not use Claude.
-- 🔒 **Safe by default** — the scraper binds to `127.0.0.1` only, secrets are git-ignored, and the skill enforces rate-limit / legal / data-handling guardrails.
+## Como abrir
 
-## What it scrapes (and what it doesn't)
+Dê dois cliques em **`Abrir CRM.bat`** (na pasta acima desta). Ele:
 
-- ✅ **Google Maps business listings** → a clean **lead list** by default: `name, phone, email, website, category, address, rating, review count`. The scraper captures ~34 raw fields, but the kit **strips the noise** (geo coordinates, IDs, hours, images, review blobs) so you only get data you can actually use for outreach. Want everything? `scrape.py --full`.
-- ➕ **Optional socials** (`--socials`): also pulls each business's **Instagram / Facebook / LinkedIn** by scanning its website. **Token cost: 0** — it runs in code (HTTP + regex), no AI. It only adds ~40–50 tokens *per business* if you later load the rows into an AI chat (≈+2k for 50 leads; nothing if you keep the file on disk). It's slower (one fetch per site) and coverage is partial (only businesses that link socials on their site).
-- ❌ **Not** a social-media scraper. It cannot touch Instagram / TikTok / YouTube.
+1. abre o Docker Desktop se estiver fechado (o scraper sobe junto);
+2. prepara a versão mais recente do CRM;
+3. abre o navegador em http://localhost:3000.
 
-## Why use this instead of asking an AI to "just scrape Google Maps"
+Deixe a janela preta aberta enquanto usa; fechar a janela desliga o CRM.
 
-Tested head-to-head: a chat AI fetching `maps.google.com` directly hits a **consent wall** and
-**JavaScript-rendered** content, so it returns **~0 structured results**. This kit reliably returns
-**dozens–hundreds of clean rows per query**. For Google Maps, it's the difference between *can't* and *can*.
+Pelo terminal: `npm run dev` (desenvolvimento) ou `npm run build && npm start` (uso diário, mais rápido).
 
----
+## O que tem
 
-## Quick start (3 steps)
+- **Início**: quem precisa de retorno hoje, as melhores oportunidades ainda não contatadas e o resumo do funil.
+- **Leads**: tabela com filtros (prioridade, etapa, precisa de site, categoria, busca, responsável, WhatsApp,
+  Instagram), ordenação, ações em massa e exportação para CSV.
+- **Funil**: kanban Novo → Contatado → Respondeu → Reunião → Proposta → Fechado / Perdido. Arraste os cards.
+- **Buscar leads**: escolha a cidade e os tipos de negócio; o CRM dispara o scraper, acompanha o progresso,
+  analisa o site de cada empresa e grava os leads no banco sozinho (sem duplicar quem já existe).
+  Também importa buscas feitas fora do CRM (pelo terminal ou pela tela do scraper).
+- **Gaveta do lead**: mensagem de WhatsApp pronta a partir de um modelo, argumentos de venda (site e
+  marketing/tráfego), próximo contato, valor, dados de contato editáveis e histórico.
+- **Configurações**: nomes da equipe (sem login: cada um escolhe o nome no menu lateral), etapas do funil,
+  modelos de mensagem e endereço do scraper.
 
-```bash
-# 1. Start the scraper (needs Docker Desktop)
-docker compose up -d
+Link direto para um lead: qualquer página com `?lead=ID`, por exemplo `http://localhost:3000/leads?lead=80`.
 
-# 2. Check it's alive — should print a JSON list (probably empty [])
-curl http://localhost:8080/api/v1/jobs
+## Como os leads são avaliados
 
-# 3a. Scrape with the script…
-./scripts/scrape.sh "coffee shops in Austin TX" 30.2672 -97.7431 5
+Para cada empresa o CRM confere o "site" cadastrado no Google Maps (vazio, Instagram, WhatsApp, Linktree,
+cardápio de delivery, site próprio fora do ar, quebrado ou sem versão para celular), procura Instagram,
+Facebook e WhatsApp no site, e verifica Pixel da Meta e Google Analytics. Daí saem o argumento de site, os
+argumentos de marketing e a prioridade:
 
-# 3b. …or open this folder in Claude Code and say:
-#     "Scrape gyms in Miami and give me phones + websites."
-```
+- **ALTA**: precisa de site, tem boa reputação (nota 4,3+ e 50+ avaliações) e tem WhatsApp.
+- **MÉDIA**: precisa de site (ou verificar), ou tem site sem Pixel/Analytics.
+- **BAIXA**: o resto.
 
-Full instructions: **[SETUP.md](SETUP.md)**. How Claude uses it: **[.claude/skills/google-maps-scraper/SKILL.md](.claude/skills/google-maps-scraper/SKILL.md)**.
+WhatsApp "provável" vem de número de celular (quase sempre tem WhatsApp, mas não é garantido);
+"confirmado" vem de um link oficial da empresa.
 
----
+## Dados e backup
 
-## Invoking it in Claude Code
+Tudo fica no Postgres do Supabase (o backup diário é do próprio Supabase, conforme o plano).
+Para uma planilha, use **Exportar CSV** em Leads ou em Configurações.
 
-### Slash commands
-| Command | What it does |
-|---|---|
-| `/scrape <business> in <city, ST> [depth]` | Run a scrape and get a clean table |
-| `/scrape-batch <keywords-file> [--city "City, ST"]` | Scrape many queries in one job |
-| `/scrape-setup` | Start the local scraper + health check |
-| `/scrape-jobs [list \| delete <id>]` | List or delete jobs |
-
-Example: `/scrape dentists in Denver CO 10`
-
-### Or just talk to it — the skill auto-triggers on phrases like:
-- "scrape coffee shops in Austin"
-- "find all gyms in Miami with phone numbers"
-- "build me a lead list of dentists in Denver, CO"
-- "pull Google Maps listings for plumbers in Phoenix"
-
-It intentionally **does not** trigger for social media (Instagram/TikTok) — that's not what it does.
-
----
-
-## ⚠️ Rate limits, bans & responsible use
-
-The upstream project's guidance (and ours): *"Please use this scraper responsibly and in accordance with
-applicable laws and regulations. Unauthorized scraping may violate terms of service."* There's **no
-published ban threshold**, so be conservative.
-
-**What "over-use" looks like** and the risk:
-- Big jobs back-to-back, very high `depth`, many keywords at once, or scheduled runs **without proxies**.
-- Risk: Google **temporarily rate-limits/blocks your IP** (minutes–hours, then clears). Your Google
-  **account is not banned**. While blocked, jobs come back `failed` or with empty/short results.
-
-**Block signals to watch:** jobs returning `failed`, suddenly empty results, or far fewer rows than an
-identical earlier run. If you see these, **slow down** — pause, lower `depth`, or add proxies.
-
-**Stay safe:**
-- One job at a time; start at `depth 5` and raise only as needed.
-- Turn on `email` extraction only when you need emails (it's much slower).
-- Treat results as **leads to verify**, not a redistributable dataset. Don't resell raw Google data.
-- Scraped phones/emails are **personal data** → follow GDPR/CCPA/CAN-SPAM if you store or contact them.
-
-**When to add proxies** (*"For larger scraping jobs, proxies help avoid rate limiting"*): large jobs, many
-keywords, repeated/scheduled runs, or after you hit block signals. Set the `proxies` array in the job body:
-```json
-"proxies": ["socks5://user:pass@host:port", "http://host2:port2"]
-```
-Types: `socks5`, `socks5h`, `http`, `https` (auth optional). The scraper rotates them automatically.
-For reference, upstream measures ~120 places/min at `-c 8 -depth 1`.
-
-> Claude's rule here is **warn, don't block**: if you ask for a large scrape, it'll flag the risk and
-> suggest proxies, then run it anyway. It only refuses clearly abusive use.
-
----
-
-## What's inside
-
-```
-google-maps-scraper-kit/
-├── README.md            ← you are here
-├── SETUP.md             ← detailed, copy-paste setup (start here)
-├── CLAUDE.md            ← auto-loaded instructions for Claude Code
-├── CREDITS.md           ← attribution to the upstream author (gosom)
-├── LICENSE              ← MIT (this kit)
-├── docker-compose.yml   ← runs the scraper locally on :8080
-├── .env.example         ← config template
-├── .gitignore
-├── scripts/
-│   ├── scrape.sh        ← one-shot bash scraper (single keyword)
-│   └── scrape.py        ← Python scraper: single, batch, + auto-geocoding (stdlib only)
-├── examples/
-│   ├── queries.example.json   ← reference job body + coordinate cheatsheet
-│   └── queries.example.txt    ← batch keyword list (one per line)
-└── .claude/
-    ├── settings.json    ← pre-approves local commands so Claude runs on autopilot
-    ├── commands/        ← /scrape, /scrape-batch, /scrape-setup, /scrape-jobs
-    └── skills/
-        └── google-maps-scraper/
-            └── SKILL.md ← THE skill that teaches Claude to use the API well
-```
-
-## Credits & license
-
-This kit orchestrates **[google-maps-scraper](https://github.com/gosom/google-maps-scraper)** by
-**Georgios Komninos**, used under the MIT License. The kit's own code is MIT licensed too. Full
-attribution in **[CREDITS.md](CREDITS.md)**. Please respect Google's Terms of Service and applicable
-data-protection law (GDPR/CCPA) when using scraped data — see the Safety section in the skill.
+São contatos comerciais públicos: na prospecção, ofereça sempre a opção de não receber mais mensagens (LGPD).
