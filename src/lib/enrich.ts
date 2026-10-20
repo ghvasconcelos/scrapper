@@ -1,7 +1,10 @@
 // Turns raw scraper rows into leads with contact channels, sales arguments and a priority.
 // Pure code (HTTP + regex): no AI involved. Ported from scripts/scrape.py and the Anápolis analysis.
+import { lookup as dnsLookup } from "node:dns";
 import dns from "node:dns/promises";
-import { BlockList, isIP } from "node:net";
+import http from "node:http";
+import https from "node:https";
+import { BlockList, isIP, type LookupFunction } from "node:net";
 import type { NeedsSite, Priority } from "./types";
 
 export type RawRow = Record<string, string>;
@@ -109,46 +112,77 @@ export function brMobileWhatsapp(phone: string): string {
   return d.length === 11 && d[2] === "9" ? "https://wa.me/55" + d : "";
 }
 
-/** Endereços que não são internet pública: rede local, o próprio PC, metadados de nuvem. */
-const PRIVATE = new BlockList();
+/** Endereços que não são internet pública: rede local, o próprio PC, metadados de nuvem, IPv4 embutido em IPv6. */
+// Duas listas: o BlockList compara IPv4 também contra as regras IPv6 (como ::ffff:x.x.x.x).
+const PRIVATE4 = new BlockList();
+const PRIVATE6 = new BlockList();
 for (const [net, bits] of [["0.0.0.0", 8], ["10.0.0.0", 8], ["100.64.0.0", 10], ["127.0.0.0", 8], ["169.254.0.0", 16],
-  ["172.16.0.0", 12], ["192.168.0.0", 16], ["198.18.0.0", 15], ["224.0.0.0", 3]] as const) PRIVATE.addSubnet(net, bits, "ipv4");
-for (const [net, bits] of [["::", 127], ["fc00::", 7], ["fe80::", 10], ["ff00::", 8]] as const) PRIVATE.addSubnet(net, bits, "ipv6");
+  ["172.16.0.0", 12], ["192.0.0.0", 24], ["192.168.0.0", 16], ["198.18.0.0", 15], ["224.0.0.0", 3]] as const) PRIVATE4.addSubnet(net, bits, "ipv4");
+for (const [net, bits] of [["::", 96], ["::ffff:0:0", 96], ["64:ff9b::", 96], ["64:ff9b:1::", 48], ["100::", 64],
+  ["2001:db8::", 32], ["2002::", 16], ["fc00::", 7], ["fe80::", 10], ["ff00::", 8]] as const) PRIVATE6.addSubnet(net, bits, "ipv6");
+
+const blocked = (address: string) => {
+  const family = isIP(address);
+  return family === 0 || (family === 4 ? PRIVATE4.check(address, "ipv4") : PRIVATE6.check(address, "ipv6"));
+};
 
 /**
- * O "site" vem do cadastro da empresa no Google Maps, que qualquer um preenche:
- * só visita endereço público, conferindo de novo a cada redirecionamento.
+ * O "site" vem do cadastro da empresa no Google Maps, que qualquer um preenche.
+ * A conferência acontece na hora de abrir a conexão (é o mesmo endereço que
+ * conecta, sem segunda consulta ao DNS), e de novo a cada redirecionamento.
  */
-async function assertPublic(u: URL) {
-  if (u.protocol !== "http:" && u.protocol !== "https:") throw new Error("protocolo não permitido");
-  const host = u.hostname.replace(/^\[|\]$/g, "");
-  const addrs = isIP(host) ? [{ address: host, family: isIP(host) }] : await dns.lookup(host, { all: true });
-  for (const { address, family } of addrs) {
-    const v4 = address.startsWith("::ffff:") ? address.slice(7) : null; // IPv4 escrito como IPv6
-    if (v4 && isIP(v4) === 4 ? PRIVATE.check(v4, "ipv4") : PRIVATE.check(address, family === 6 ? "ipv6" : "ipv4")) {
-      throw new Error("endereço interno");
+const publicOnly: LookupFunction = (host, options, callback) => {
+  dnsLookup(host, { all: true }, (err, addrs) => {
+    if (err) return callback(err, "", 4);
+    const ok = addrs.filter((a) => !blocked(a.address));
+    if (!ok.length || ok.length !== addrs.length) {
+      return callback(Object.assign(new Error("endereço interno"), { code: "EBLOCKED" }), "", 4);
     }
-  }
+    if (options.all) return callback(null, ok);
+    callback(null, ok[0].address, ok[0].family);
+  });
+};
+
+const LIMIT = 600_000;
+
+function getOnce(url: URL, signal: AbortSignal): Promise<{ status: number; location: string | null; html: string }> {
+  if (url.protocol !== "http:" && url.protocol !== "https:") return Promise.reject(new Error("protocolo não permitido"));
+  const literal = url.hostname.replace(/^\[|\]$/g, "");
+  if (isIP(literal) && blocked(literal)) return Promise.reject(new Error("endereço interno")); // IP direto não passa pelo DNS
+  return new Promise((resolve, reject) => {
+    const req = (url.protocol === "https:" ? https : http).get(url, {
+      headers: { "User-Agent": BROWSER_UA, Accept: "text/html,*/*", "Accept-Language": "pt-BR,pt;q=0.9", "Accept-Encoding": "identity" },
+      lookup: publicOnly,
+      signal,
+    }, (res) => {
+      const status = res.statusCode ?? 0;
+      const location = status >= 300 && status < 400 ? res.headers.location ?? null : null;
+      if (location) {
+        res.resume();
+        return resolve({ status, location, html: "" });
+      }
+      const chunks: Buffer[] = [];
+      let size = 0;
+      const done = () => resolve({ status, location: null, html: Buffer.concat(chunks).toString("utf8").slice(0, LIMIT) });
+      res.on("data", (c: Buffer) => {
+        chunks.push(c);
+        size += c.length;
+        if (size >= LIMIT) { done(); res.destroy(); }
+      });
+      res.on("end", done);
+      res.on("error", reject);
+    });
+    req.on("error", reject);
+  });
 }
 
 async function fetchHtml(url: string, timeoutMs: number): Promise<{ status: number; html: string }> {
   const signal = AbortSignal.timeout(timeoutMs);
   let target = new URL(/^https?:\/\//i.test(url) ? url : "http://" + url);
   for (let hop = 0; hop < 6; hop++) {
-    await assertPublic(target);
-    const res = await fetch(target, {
-      headers: { "User-Agent": BROWSER_UA, Accept: "text/html,*/*", "Accept-Language": "pt-BR,pt;q=0.9" },
-      redirect: "manual",
-      signal,
-    });
-    const next = res.status >= 300 && res.status < 400 ? res.headers.get("location") : null;
-    if (next) {
-      await res.body?.cancel();
-      target = new URL(next, target);
-      continue;
-    }
-    const html = (await res.text()).slice(0, 600_000);
-    return { status: res.status, html };
+    const res = await getOnce(target, signal);
+    if (!res.location) return { status: res.status, html: res.html };
+    target = new URL(res.location, target);
   }
   throw new Error("redirecionamentos demais");
 }
