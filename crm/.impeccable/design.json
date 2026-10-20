@@ -1,0 +1,763 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T01:51:22.774Z",
+  "title": "Design System: Prospecção CRM",
+  "extensions": {
+    "colorMeta": {
+      "navy-950": {
+        "role": "neutral",
+        "displayName": "Rail Night",
+        "canonical": "#080a1d",
+        "tonalRamp": [
+          "#07091c",
+          "#1f2237",
+          "#3a3e55",
+          "#575c75",
+          "#767c96",
+          "#979db7",
+          "#bec3da",
+          "#e9edff"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Desk Navy",
+        "canonical": "#0d1029",
+        "tonalRamp": [
+          "#060820",
+          "#1d223c",
+          "#383e5b",
+          "#555c7a",
+          "#747b9c",
+          "#969dbb",
+          "#bcc3de",
+          "#e8edff"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Lifted Navy",
+        "canonical": "#151937",
+        "tonalRamp": [
+          "#060723",
+          "#1c2140",
+          "#373d5e",
+          "#545b7f",
+          "#737ba0",
+          "#959cbe",
+          "#bbc3e1",
+          "#e7edff"
+        ]
+      },
+      "panel-sunk": {
+        "role": "neutral",
+        "displayName": "Sunk Navy",
+        "canonical": "#1b2044",
+        "tonalRamp": [
+          "#060627",
+          "#1b2044",
+          "#353c63",
+          "#525b84",
+          "#717ba4",
+          "#939cc3",
+          "#bac2e5",
+          "#e6edff"
+        ]
+      },
+      "panel-raised": {
+        "role": "neutral",
+        "displayName": "Raised Navy",
+        "canonical": "#1f2550",
+        "tonalRamp": [
+          "#05042b",
+          "#1a1f49",
+          "#333b69",
+          "#505a8a",
+          "#707aaa",
+          "#929cc8",
+          "#b9c2e9",
+          "#e5edff"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Field Well",
+        "canonical": "#10142f",
+        "tonalRamp": [
+          "#060821",
+          "#1c213e",
+          "#373d5c",
+          "#545c7c",
+          "#737b9d",
+          "#959dbc",
+          "#bcc3df",
+          "#e7edff"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#262b53",
+        "tonalRamp": [
+          "#060528",
+          "#1b1f46",
+          "#363c65",
+          "#525a86",
+          "#717aa8",
+          "#939cc6",
+          "#bac2e8",
+          "#e6edff"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Control Hairline",
+        "canonical": "#373d6e",
+        "tonalRamp": [
+          "#06022d",
+          "#1b1d4b",
+          "#353a6b",
+          "#51598c",
+          "#7079af",
+          "#919bce",
+          "#b8c1f0",
+          "#e4ecff"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#ebecfa",
+        "tonalRamp": [
+          "#0a0a13",
+          "#22232d",
+          "#3e3f4a",
+          "#5c5c68",
+          "#7b7c88",
+          "#9c9daa",
+          "#c2c3d0",
+          "#ecedfb"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Secondary",
+        "canonical": "#b8bbdf",
+        "tonalRamp": [
+          "#09091a",
+          "#202138",
+          "#3b3d59",
+          "#585a7a",
+          "#787a9b",
+          "#989bbe",
+          "#bec1e5",
+          "#e8ebff"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink Tertiary",
+        "canonical": "#9094bf",
+        "tonalRamp": [
+          "#08071f",
+          "#1f203f",
+          "#393b61",
+          "#575a81",
+          "#7679a3",
+          "#969bc6",
+          "#bcc0ed",
+          "#e6ebff"
+        ]
+      },
+      "neutral-tint": {
+        "role": "neutral",
+        "displayName": "Neutral Tint",
+        "canonical": "#232850",
+        "tonalRamp": [
+          "#060429",
+          "#1b1f46",
+          "#353c66",
+          "#525a86",
+          "#717aa8",
+          "#939cc6",
+          "#bac2e8",
+          "#e6edff"
+        ]
+      },
+      "rail-text": {
+        "role": "neutral",
+        "displayName": "Rail Text",
+        "canonical": "#c3c6ea",
+        "tonalRamp": [
+          "#09091a",
+          "#212138",
+          "#3b3d58",
+          "#585a7a",
+          "#787a9b",
+          "#999bbe",
+          "#bec1e5",
+          "#e8ebff"
+        ]
+      },
+      "rail-muted": {
+        "role": "neutral",
+        "displayName": "Rail Muted",
+        "canonical": "#8e93c4",
+        "tonalRamp": [
+          "#080721",
+          "#1e2041",
+          "#383b64",
+          "#555986",
+          "#7479a8",
+          "#959acb",
+          "#bac0f3",
+          "#e4eaff"
+        ]
+      },
+      "navy-900": {
+        "role": "neutral",
+        "displayName": "Rail Hover",
+        "canonical": "#12163a",
+        "tonalRamp": [
+          "#050527",
+          "#1b2045",
+          "#353c64",
+          "#525b85",
+          "#727ba3",
+          "#949cc2",
+          "#bac2e4",
+          "#e6edff"
+        ]
+      },
+      "navy-800": {
+        "role": "neutral",
+        "displayName": "Rail Active",
+        "canonical": "#1d2257",
+        "tonalRamp": [
+          "#060032",
+          "#181c51",
+          "#323a71",
+          "#4e5893",
+          "#6e79b0",
+          "#909bce",
+          "#b7c2ee",
+          "#e4edff"
+        ]
+      },
+      "navy-700": {
+        "role": "neutral",
+        "displayName": "Rail Field Border",
+        "canonical": "#2c3270",
+        "tonalRamp": [
+          "#070036",
+          "#181a56",
+          "#313877",
+          "#4d5799",
+          "#6c78b9",
+          "#8e9ad6",
+          "#b6c1f6",
+          "#e2ecff"
+        ]
+      },
+      "violet": {
+        "role": "primary",
+        "displayName": "Signal Violet",
+        "canonical": "#6b4bf5",
+        "tonalRamp": [
+          "#13004b",
+          "#270079",
+          "#3f03a9",
+          "#592fdb",
+          "#7558ff",
+          "#9381ff",
+          "#b7aeff",
+          "#e2deff"
+        ]
+      },
+      "violet-hover": {
+        "role": "primary",
+        "displayName": "Signal Violet Hover",
+        "canonical": "#7a5cff",
+        "tonalRamp": [
+          "#120044",
+          "#270071",
+          "#4014a0",
+          "#5b35d2",
+          "#7859fc",
+          "#977fff",
+          "#bbadff",
+          "#e4ddff"
+        ]
+      },
+      "violet-press": {
+        "role": "primary",
+        "displayName": "Signal Violet Press",
+        "canonical": "#5a3be0",
+        "tonalRamp": [
+          "#14004f",
+          "#26007d",
+          "#3d00ae",
+          "#5533d9",
+          "#715cff",
+          "#9086ff",
+          "#b5b2ff",
+          "#e0e1ff"
+        ]
+      },
+      "violet-ink": {
+        "role": "primary",
+        "displayName": "Lavender Ink",
+        "canonical": "#b9a9ff",
+        "tonalRamp": [
+          "#0d0423",
+          "#261b46",
+          "#41356c",
+          "#5f5193",
+          "#7f6fbd",
+          "#a090e4",
+          "#c5b6ff",
+          "#f0e0ff"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Priority Amber",
+        "canonical": "#f4b856",
+        "tonalRamp": [
+          "#190500",
+          "#381d00",
+          "#5b3700",
+          "#7f5400",
+          "#a57203",
+          "#cc9229",
+          "#f4b856",
+          "#ffe382"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "Overdue Red",
+        "canonical": "#ff6f78",
+        "tonalRamp": [
+          "#270000",
+          "#4e000c",
+          "#771122",
+          "#a22c3a",
+          "#d04653",
+          "#f86972",
+          "#ff9097",
+          "#ffc2c5"
+        ]
+      },
+      "red-solid": {
+        "role": "secondary",
+        "displayName": "Overdue Red Solid",
+        "canonical": "#d93a45",
+        "tonalRamp": [
+          "#2f0000",
+          "#580000",
+          "#83000e",
+          "#b10026",
+          "#d93a45",
+          "#ff6165",
+          "#ff9391",
+          "#ffc6c2"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Won Green",
+        "canonical": "#3fcf95",
+        "tonalRamp": [
+          "#001302",
+          "#003115",
+          "#00502d",
+          "#007247",
+          "#009662",
+          "#1cba81",
+          "#56e1a6",
+          "#8effd1"
+        ]
+      },
+      "wa": {
+        "role": "secondary",
+        "displayName": "WhatsApp Green",
+        "canonical": "#13804b",
+        "tonalRamp": [
+          "#001400",
+          "#003207",
+          "#005120",
+          "#00713d",
+          "#2f925c",
+          "#56b57d",
+          "#88d9a6",
+          "#bdffd4"
+        ]
+      },
+      "wa-hover": {
+        "role": "secondary",
+        "displayName": "WhatsApp Green Hover",
+        "canonical": "#17965a",
+        "tonalRamp": [
+          "#001500",
+          "#003207",
+          "#00521f",
+          "#00733a",
+          "#149559",
+          "#46b779",
+          "#79dda1",
+          "#b1ffd0"
+        ]
+      },
+      "wa-ink": {
+        "role": "secondary",
+        "displayName": "WhatsApp Ink",
+        "canonical": "#45d48c",
+        "tonalRamp": [
+          "#001300",
+          "#00310e",
+          "#005025",
+          "#00733d",
+          "#009757",
+          "#1ebb75",
+          "#57e39a",
+          "#8effc5"
+        ]
+      },
+      "violet-tint": {
+        "role": "primary",
+        "displayName": "Violet Tint",
+        "canonical": "rgba(124, 96, 255, 0.16)",
+        "tonalRamp": [
+          "#13004b",
+          "#270079",
+          "#3f03a9",
+          "#592fdb",
+          "#7558ff",
+          "#9381ff",
+          "#b7aeff",
+          "#e2deff"
+        ]
+      },
+      "violet-tint-2": {
+        "role": "primary",
+        "displayName": "Violet Tint Strong",
+        "canonical": "rgba(124, 96, 255, 0.32)",
+        "tonalRamp": [
+          "#13004b",
+          "#270079",
+          "#3f03a9",
+          "#592fdb",
+          "#7558ff",
+          "#9381ff",
+          "#b7aeff",
+          "#e2deff"
+        ]
+      },
+      "green-tint": {
+        "role": "secondary",
+        "displayName": "Won Tint",
+        "canonical": "rgba(63, 207, 149, 0.14)",
+        "tonalRamp": [
+          "#001302",
+          "#003115",
+          "#00502d",
+          "#007247",
+          "#009662",
+          "#1cba81",
+          "#56e1a6",
+          "#8effd1"
+        ]
+      },
+      "red-tint": {
+        "role": "secondary",
+        "displayName": "Overdue Tint",
+        "canonical": "rgba(255, 111, 120, 0.14)",
+        "tonalRamp": [
+          "#270000",
+          "#4e000c",
+          "#771122",
+          "#a22c3a",
+          "#d04653",
+          "#f86972",
+          "#ff9097",
+          "#ffc2c5"
+        ]
+      },
+      "amber-tint": {
+        "role": "secondary",
+        "displayName": "Priority Tint",
+        "canonical": "rgba(244, 184, 86, 0.14)",
+        "tonalRamp": [
+          "#190500",
+          "#381d00",
+          "#5b3700",
+          "#7f5400",
+          "#a57203",
+          "#cc9229",
+          "#f4b856",
+          "#ffe382"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles; drawer lead name uses 19px."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Panel headings; kanban column heads at 13.5px, drawer section heads at 13px."
+      },
+      "metric": {
+        "displayName": "Metric",
+        "purpose": "KPI values, tabular figures; 24px on mobile."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default text; lead names at weight 600."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Buttons, inputs, table cells."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels, hints, due dates, table headers, row subtitles."
+      },
+      "badge": {
+        "displayName": "Badge",
+        "purpose": "Priority and status badges."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Template variables and code only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-1",
+        "value": "0 1px 2px rgba(0, 0, 0, 0.35)",
+        "purpose": "Rest: panels, KPI cards, kanban cards, primary buttons."
+      },
+      {
+        "name": "shadow-2",
+        "value": "0 8px 20px -6px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.3)",
+        "purpose": "Lift: hover on clickable or draggable cards."
+      },
+      {
+        "name": "shadow-3",
+        "value": "0 24px 60px -12px rgba(0, 0, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.35)",
+        "purpose": "Overlay: drawer and toasts."
+      },
+      {
+        "name": "focus-ring-field",
+        "value": "0 0 0 3px rgba(124, 96, 255, 0.32)",
+        "purpose": "Input focus ring paired with a violet border."
+      },
+      {
+        "name": "rail-active",
+        "value": "inset 0 0 0 1px rgba(124, 96, 255, 0.35)",
+        "purpose": "Active rail link hairline."
+      },
+      {
+        "name": "lane-drop",
+        "value": "inset 0 0 0 2px #6b4bf5",
+        "purpose": "Kanban lane under a dragged card."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Drawer slide, toast rise, card transform, progress fill."
+      },
+      {
+        "name": "drawer-slide",
+        "value": "220ms ease-out, translateX(32px) + fade",
+        "purpose": "Lead drawer entrance."
+      },
+      {
+        "name": "scrim-fade",
+        "value": "160ms ease-out",
+        "purpose": "Drawer scrim."
+      },
+      {
+        "name": "toast-rise",
+        "value": "220ms ease-out, translateY(10px) + fade",
+        "purpose": "Toast entrance."
+      },
+      {
+        "name": "state",
+        "value": "120ms",
+        "purpose": "Hover/focus color, border and shadow changes; rows 100ms, cards 140ms."
+      },
+      {
+        "name": "drag",
+        "value": "opacity 0.45, rotate(1.2deg) scale(0.98)",
+        "purpose": "Kanban card while dragged."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "1ms",
+        "purpose": "All animation and transition durations under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1180px"
+      },
+      {
+        "name": "medium",
+        "value": "900px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single main action per region (Nova busca, Registrar contato).",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M5 12h14M12 5v14\"/></svg> Nova busca</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:6px;border:1px solid #373d6e;background:#151937;color:#ebecfa;font-weight:500;font-size:13.5px;cursor:pointer;white-space:nowrap;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;transition:background 120ms,border-color 120ms,box-shadow 120ms;background:#6b4bf5;border-color:#6b4bf5;color:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.35);} .ds-btn-primary:hover{background:#7a5cff;border-color:#7a5cff;} .ds-btn-primary:active{background:#5a3be0;} .ds-btn-primary:focus-visible{outline:2px solid #6b4bf5;outline-offset:2px;}"
+    },
+    {
+      "name": "Default Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Secondary actions and channel links (Ligar, Instagram, Google Maps).",
+      "html": "<button class=\"ds-btn\">Só abrir conversa</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:6px;border:1px solid #373d6e;background:#151937;color:#ebecfa;font-weight:500;font-size:13.5px;cursor:pointer;white-space:nowrap;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;transition:background 120ms,border-color 120ms,box-shadow 120ms;} .ds-btn:hover{background:#1b2044;border-color:#9094bf;} .ds-btn:active{background:#1f2550;} .ds-btn:focus-visible{outline:2px solid #6b4bf5;outline-offset:2px;}"
+    },
+    {
+      "name": "WhatsApp Button",
+      "kind": "button",
+      "refersTo": "button-whatsapp",
+      "description": "Opens WhatsApp with the filled template; the only use of WhatsApp green as a fill.",
+      "html": "<button class=\"ds-btn-wa\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7.9 20A9 9 0 1 0 4 16.1L2 22Z\"/></svg> Enviar no WhatsApp</button>",
+      "css": ".ds-btn-wa{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:6px;border:1px solid #373d6e;background:#151937;color:#ebecfa;font-weight:500;font-size:13.5px;cursor:pointer;white-space:nowrap;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;transition:background 120ms,border-color 120ms,box-shadow 120ms;background:#13804b;border-color:#13804b;color:#fff;} .ds-btn-wa:hover{background:#17965a;border-color:#17965a;} .ds-btn-wa:focus-visible{outline:2px solid #6b4bf5;outline-offset:2px;}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-emphasis links in panel heads (Ver todos) and close buttons.",
+      "html": "<button class=\"ds-btn-ghost\">Ver todos</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 13px;border-radius:6px;border:1px solid #373d6e;background:#151937;color:#ebecfa;font-weight:500;font-size:13.5px;cursor:pointer;white-space:nowrap;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;transition:background 120ms,border-color 120ms,box-shadow 120ms;background:transparent;border-color:transparent;color:#b8bbdf;} .ds-btn-ghost:hover{background:#1f2550;color:#ebecfa;} .ds-btn-ghost:focus-visible{outline:2px solid #6b4bf5;outline-offset:2px;}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Field well with violet border and tinted ring on focus.",
+      "html": "<label class=\"ds-field\"><span>Cidade</span><input class=\"ds-input\" placeholder=\"Anápolis, GO\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:5px;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;} .ds-field span{font-size:12.5px;font-weight:500;color:#b8bbdf;} .ds-input{height:34px;padding:0 10px;border:1px solid #373d6e;border-radius:6px;background:#10142f;color:#ebecfa;font-size:13.5px;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;transition:border-color 120ms,box-shadow 120ms;} .ds-input::placeholder{color:#9094bf;} .ds-input:hover{border-color:#9094bf;} .ds-input:focus{outline:none;border-color:#6b4bf5;box-shadow:0 0 0 3px rgba(124,96,255,0.32);}"
+    },
+    {
+      "name": "Filter Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Search presets and filters; selected uses the violet tint.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">restaurantes</button><button class=\"ds-chip\">pizzarias</button><button class=\"ds-chip\">padarias</button></div>",
+      "css": ".ds-chips{display:flex;gap:6px;flex-wrap:wrap;} .ds-chip{display:inline-flex;align-items:center;height:28px;padding:0 11px;border-radius:14px;border:1px solid #373d6e;background:#151937;font-size:13px;color:#b8bbdf;cursor:pointer;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;transition:background 120ms,border-color 120ms,color 120ms;} .ds-chip:hover{border-color:#9094bf;color:#ebecfa;} .ds-chip[aria-pressed=\"true\"]{background:rgba(124,96,255,0.16);border-color:#6b4bf5;color:#b9a9ff;} .ds-chip:focus-visible{outline:2px solid #6b4bf5;outline-offset:2px;}"
+    },
+    {
+      "name": "Priority and Status Badges",
+      "kind": "chip",
+      "refersTo": "badge-alta",
+      "description": "ALTA solid amber, MÉDIA amber tint, BAIXA neutral; site-need outline; won and lost tints.",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-badge ds-alta\">ALTA</span><span class=\"ds-badge ds-media\">MÉDIA</span><span class=\"ds-badge ds-baixa\">BAIXA</span><span class=\"ds-badge ds-site\">Precisa de site</span><span class=\"ds-badge ds-won\">Fechado</span><span class=\"ds-badge ds-lost\">Perdido</span></div>",
+      "css": ".ds-badges{display:flex;gap:6px;flex-wrap:wrap;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;} .ds-badge{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:4px;font-size:11.5px;font-weight:600;letter-spacing:0.01em;white-space:nowrap;} .ds-alta{background:#f4b856;color:#1a1205;} .ds-media{background:rgba(244,184,86,0.14);color:#f4b856;} .ds-baixa{background:#232850;color:#b8bbdf;} .ds-site{border:1px solid #f4b856;color:#f4b856;} .ds-won{background:rgba(63,207,149,0.14);color:#3fcf95;} .ds-lost{background:rgba(255,111,120,0.14);color:#ff6f78;}"
+    },
+    {
+      "name": "Rail Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Near-black navy sidebar; active link gets navy-800, an inset violet hairline and a lavender icon.",
+      "html": "<nav class=\"ds-rail\"><a class=\"ds-rail-link\" aria-current=\"page\" href=\"#\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/></svg><span>Início</span><span class=\"ds-count\">3</span></a><a class=\"ds-rail-link\" href=\"#\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"9\" cy=\"7\" r=\"4\"/><path d=\"M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M16 3.1a4 4 0 0 1 0 7.8M21 21v-2a4 4 0 0 0-3-3.9\"/></svg><span>Leads</span></a><a class=\"ds-rail-link\" href=\"#\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M9 3v18M15 3v18\"/></svg><span>Funil</span></a></nav>",
+      "css": ".ds-rail{display:flex;flex-direction:column;gap:2px;width:208px;padding:12px;background:#080a1d;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;} .ds-rail-link{display:flex;align-items:center;gap:11px;padding:8px 10px;border-radius:6px;color:#c3c6ea;font-weight:500;font-size:14px;text-decoration:none;transition:background 120ms,color 120ms;} .ds-rail-link:hover{background:#12163a;color:#fff;} .ds-rail-link[aria-current=\"page\"]{background:#1d2257;color:#fff;box-shadow:inset 0 0 0 1px rgba(124,96,255,0.35);} .ds-rail-link[aria-current=\"page\"] svg{color:#b9a9ff;} .ds-rail-link:focus-visible{outline:2px solid #6b4bf5;outline-offset:2px;} .ds-count{margin-left:auto;font-size:11.5px;font-weight:600;padding:1px 7px;border-radius:10px;background:#d93a45;color:#fff;font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "Kanban Card",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Draggable lead card: name + priority, reason clamp, due date; lifts on hover.",
+      "html": "<div class=\"ds-lane\"><div class=\"ds-card\"><div class=\"ds-card-top\"><b>Hipper Pizza</b><span class=\"ds-b\">ALTA</span></div><div class=\"ds-reason\">Site fora do ar: o domínio não responde</div><div class=\"ds-foot\"><span class=\"ds-late\">atrasado 2 dias</span><span class=\"ds-stars\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z\"/></svg> 4,4</span></div></div></div>",
+      "css": ".ds-lane{background:#10142f;border:1px solid #262b53;border-radius:10px;padding:10px 8px;width:270px;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;} .ds-card{background:#151937;border:1px solid #262b53;border-radius:8px;padding:10px 11px;box-shadow:0 1px 2px rgba(0,0,0,0.35);display:flex;flex-direction:column;gap:7px;cursor:grab;color:#ebecfa;transition:box-shadow 140ms,border-color 140ms,transform 140ms cubic-bezier(0.16,1,0.3,1);} .ds-card:hover{border-color:#373d6e;background:#1b2044;box-shadow:0 8px 20px -6px rgba(0,0,0,0.55),0 2px 4px rgba(0,0,0,0.3);} .ds-card-top{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;} .ds-card-top b{flex:1;font-weight:600;} .ds-b{height:20px;padding:0 7px;border-radius:4px;font-size:11.5px;font-weight:600;background:#f4b856;color:#1a1205;display:inline-flex;align-items:center;} .ds-reason{font-size:12px;color:#b8bbdf;line-height:1.35;} .ds-foot{display:flex;justify-content:space-between;font-size:12.5px;font-variant-numeric:tabular-nums;} .ds-late{color:#ff6f78;font-weight:600;} .ds-stars{display:inline-flex;gap:3px;align-items:center;} .ds-stars svg{color:#f5b82e;}"
+    },
+    {
+      "name": "KPI Card",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Clickable metric card on Início; violet border and lift on hover.",
+      "html": "<button class=\"ds-kpi\"><span class=\"ds-kpi-label\">Para contatar</span><span class=\"ds-kpi-value\">49</span><span class=\"ds-kpi-foot\">prioridade alta, ainda em Novo</span></button>",
+      "css": ".ds-kpi{display:flex;flex-direction:column;gap:6px;padding:14px 16px;text-align:left;width:260px;background:#151937;border:1px solid #262b53;border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,0.35);color:#ebecfa;cursor:pointer;font-family:var(--font-geist-sans, Geist),system-ui,sans-serif;transition:border-color 120ms,box-shadow 120ms;} .ds-kpi:hover{border-color:#6b4bf5;box-shadow:0 8px 20px -6px rgba(0,0,0,0.55),0 2px 4px rgba(0,0,0,0.3);} .ds-kpi:focus-visible{outline:2px solid #6b4bf5;outline-offset:2px;} .ds-kpi-label{font-size:13px;font-weight:500;color:#b8bbdf;} .ds-kpi-value{font-size:28px;font-weight:600;letter-spacing:-0.02em;line-height:1.1;font-variant-numeric:tabular-nums;} .ds-kpi-foot{font-size:12.5px;color:#9094bf;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night-Shift Pipeline",
+    "overview": "A category-standard sales CRM in the Pipedrive idiom, played straight and dark. A near-black navy rail holds navigation and system status; the work area is a dark navy ground carrying slightly lifted navy panels outlined in 1px hairlines. Nothing in the chrome competes with the data: one violet marks what you can act on or what is selected, and the remaining color is semantic, reserved for priority, overdue, won and lost.\n\nThe product's single specific truth is visible everywhere a lead appears: a compact priority badge (ALTA / MÉDIA / BAIXA) and a one-line sales reason travel with the lead name in lists, tables, kanban cards and the drawer. Density is desk-work density: 14px body, 34px controls, 46px table rows, tabular figures for every count, date and money value.\n\nMotion is functional only: the lead drawer slides in from the right, cards tilt slightly while dragged, toasts rise. There is no ornamental animation, no gradient glass, and no neon-on-black.",
+    "keyCharacteristics": [
+      "Dark navy layering (rail darker than ground, panels lighter than ground), 1px hairline borders.",
+      "One action color (violet); semantic colors carry state, never decoration.",
+      "Priority badge + sales reason on every lead representation.",
+      "Geist Sans throughout, tabular figures for numbers, sentence case pt-BR labels.",
+      "Small radii (4 / 6 / 10px), soft dark offset shadows."
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Violet means \"act here\" or \"this is selected\". It never decorates, never labels a category, and never appears as a gradient.",
+        "section": "colors"
+      },
+      {
+        "name": "The Earned Red Rule",
+        "body": "Red appears only when something is overdue, lost, failed or destructive. A screen with nothing late shows no red.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Greens Rule",
+        "body": "Won Green reports an outcome; WhatsApp Green opens a conversation. Don't swap them.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every count, date, rating, money value and KPI uses tabular figures, so columns of numbers align.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sentence-Case Rule",
+        "body": "Headings, buttons and labels are pt-BR sentence case. No uppercase tracking labels above headings.",
+        "section": "typography"
+      },
+      {
+        "name": "The Lift-On-Intent Rule",
+        "body": "Surfaces sit at Rest; Lift appears only on hover over something clickable or draggable; Overlay is reserved for things above the page.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use violet (#6b4bf5) for the single primary action per region and for every selected or focused state.",
+      "Do show the priority badge and the one-line sales reason next to the lead name wherever a lead appears.",
+      "Do use tabular figures for counts, dates, ratings and money, formatted pt-BR (comma decimals, \"atrasado 3 dias\", \"qui, 9 out\").",
+      "Do build depth from the navy ramp first and the three-step shadow vocabulary second.",
+      "Do keep radii on the 4 / 6 / 10px scale and every surface outlined by a 1px hairline.",
+      "Do keep empty states quiet: one bold line plus one `ink-3` sentence, and outline empty kanban lanes only while a drag is in progress."
+    ],
+    "donts": [
+      "Don't use red for anything that is not overdue, lost, failed or destructive.",
+      "Don't use violet as decoration, as a category color, or in gradients.",
+      "Don't use the WhatsApp green for \"won\", or Won Green on the WhatsApp action.",
+      "Don't add uppercase tracking labels above headings; ALTA / MÉDIA / BAIXA are the only uppercase text, and only as badges.",
+      "Don't use neon-on-black accents, glows, glassmorphism or gradient surfaces.",
+      "Don't use hard offset or colored shadows.",
+      "Don't add ornamental motion; animate only the drawer, scrim, toasts, drag feedback and progress."
+    ]
+  }
+}
