@@ -1,6 +1,7 @@
 // Turns raw scraper rows into leads with contact channels, sales arguments and a priority.
 // Pure code (HTTP + regex): no AI involved. Ported from scripts/scrape.py and the Anápolis analysis.
 import dns from "node:dns/promises";
+import { BlockList, isIP } from "node:net";
 import type { NeedsSite, Priority } from "./types";
 
 export type RawRow = Record<string, string>;
@@ -108,15 +109,48 @@ export function brMobileWhatsapp(phone: string): string {
   return d.length === 11 && d[2] === "9" ? "https://wa.me/55" + d : "";
 }
 
+/** Endereços que não são internet pública: rede local, o próprio PC, metadados de nuvem. */
+const PRIVATE = new BlockList();
+for (const [net, bits] of [["0.0.0.0", 8], ["10.0.0.0", 8], ["100.64.0.0", 10], ["127.0.0.0", 8], ["169.254.0.0", 16],
+  ["172.16.0.0", 12], ["192.168.0.0", 16], ["198.18.0.0", 15], ["224.0.0.0", 3]] as const) PRIVATE.addSubnet(net, bits, "ipv4");
+for (const [net, bits] of [["::", 127], ["fc00::", 7], ["fe80::", 10], ["ff00::", 8]] as const) PRIVATE.addSubnet(net, bits, "ipv6");
+
+/**
+ * O "site" vem do cadastro da empresa no Google Maps, que qualquer um preenche:
+ * só visita endereço público, conferindo de novo a cada redirecionamento.
+ */
+async function assertPublic(u: URL) {
+  if (u.protocol !== "http:" && u.protocol !== "https:") throw new Error("protocolo não permitido");
+  const host = u.hostname.replace(/^\[|\]$/g, "");
+  const addrs = isIP(host) ? [{ address: host, family: isIP(host) }] : await dns.lookup(host, { all: true });
+  for (const { address, family } of addrs) {
+    const v4 = address.startsWith("::ffff:") ? address.slice(7) : null; // IPv4 escrito como IPv6
+    if (v4 && isIP(v4) === 4 ? PRIVATE.check(v4, "ipv4") : PRIVATE.check(address, family === 6 ? "ipv6" : "ipv4")) {
+      throw new Error("endereço interno");
+    }
+  }
+}
+
 async function fetchHtml(url: string, timeoutMs: number): Promise<{ status: number; html: string }> {
-  const target = /^https?:\/\//i.test(url) ? url : "http://" + url;
-  const res = await fetch(target, {
-    headers: { "User-Agent": BROWSER_UA, Accept: "text/html,*/*", "Accept-Language": "pt-BR,pt;q=0.9" },
-    redirect: "follow",
-    signal: AbortSignal.timeout(timeoutMs),
-  });
-  const html = (await res.text()).slice(0, 600_000);
-  return { status: res.status, html };
+  const signal = AbortSignal.timeout(timeoutMs);
+  let target = new URL(/^https?:\/\//i.test(url) ? url : "http://" + url);
+  for (let hop = 0; hop < 6; hop++) {
+    await assertPublic(target);
+    const res = await fetch(target, {
+      headers: { "User-Agent": BROWSER_UA, Accept: "text/html,*/*", "Accept-Language": "pt-BR,pt;q=0.9" },
+      redirect: "manual",
+      signal,
+    });
+    const next = res.status >= 300 && res.status < 400 ? res.headers.get("location") : null;
+    if (next) {
+      await res.body?.cancel();
+      target = new URL(next, target);
+      continue;
+    }
+    const html = (await res.text()).slice(0, 600_000);
+    return { status: res.status, html };
+  }
+  throw new Error("redirecionamentos demais");
 }
 
 async function checkSite(url: string, own: boolean): Promise<SiteCheck> {
